@@ -22,7 +22,6 @@
 #include <vtkMarchingCubes.h>
 #include <vtkRenderWindow.h>
 #include <string>
-#include <vtkGDCMImageReader.h>
 #include <vtkImageChangeInformation.h>
 
 
@@ -73,7 +72,6 @@ private:
   double morphologicalSize;
   int computed;
   vtkSmartPointer<vtkMarchingCubes> surface;
-  vtkSmartPointer<vtkGDCMImageReader> gdcmReader;
   vtkSmartPointer<vtkImageChangeInformation> input;
 };
 
