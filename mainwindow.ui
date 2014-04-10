@@ -27,9 +27,9 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>420</y>
-      <width>221</width>
+      <x>60</x>
+      <y>421</y>
+      <width>322</width>
       <height>29</height>
      </rect>
     </property>
@@ -58,6 +58,13 @@
       <widget class="QPushButton" name="pushButton">
        <property name="text">
         <string>Update</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>24</number>
        </property>
       </widget>
      </item>
