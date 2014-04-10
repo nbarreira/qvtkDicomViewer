@@ -17,11 +17,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-  std::string dir("/local2/scratch/maxilar/2/");
+  std::string dir("/local2/scratch/maxilar/1/");
 
   SurfaceReconstruction sr;
-  sr.readDICOMDir(dir);
-  sr.update();
-  sr.show(ui->qvtkWidget->GetRenderWindow());
+  sr.ReadDICOMSeries(dir);
+  sr.Update();
+  sr.Show(ui->qvtkWidget->GetRenderWindow());
 
 }
