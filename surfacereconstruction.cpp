@@ -61,7 +61,7 @@ inline bool sortByInstanceNumber(gdcm::DataSet const & ds1, gdcm::DataSet const 
   return at1 < at2;
 }
 
-int SurfaceReconstruction::ReadDICOMSeries(std::string &dir){
+int SurfaceReconstruction::ReadDICOMSeries(std::string dir){
 
 
   gdcm::Directory d;
@@ -130,7 +130,7 @@ int SurfaceReconstruction::ReadDICOMSeries(std::string &dir){
   }
   computed = 0;
 
-  return filenames.size();
+  return dcmfilenames.size();
 
 }
 

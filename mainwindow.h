@@ -18,9 +18,11 @@ public:
 
 private slots:
   void on_pushButton_clicked();
+  void on_actionOpen_directory_activated();
 
 private:
   Ui::MainWindow *ui;
+  SurfaceReconstruction sr;
 };
 
 #endif // MAINWINDOW_H

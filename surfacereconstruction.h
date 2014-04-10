@@ -37,7 +37,7 @@ public:
    * @param dir Directory where the DICOM files are stored
    * @return Number of dicom files read
    */
-  int ReadDICOMSeries(std::string &dir);
+  int ReadDICOMSeries(std::string dir);
 
   /**
    * @brief Update Applies the surface reconstruction algorithm. If no image was
