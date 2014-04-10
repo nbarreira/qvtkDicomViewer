@@ -49,8 +49,14 @@ SurfaceReconstruction::SurfaceReconstruction()
   morphologicalSize = 3;
   surface =  vtkSmartPointer<vtkMarchingCubes>::New();
   gdcmReader = vtkSmartPointer<vtkGDCMImageReader>::New();
+  input = vtkSmartPointer<vtkImageChangeInformation>::New();
   computed = 0;
 }
+
+SurfaceReconstruction::~SurfaceReconstruction()
+{
+}
+
 
 inline bool sortByInstanceNumber(gdcm::DataSet const & ds1, gdcm::DataSet const & ds2 )
 {
@@ -60,6 +66,8 @@ inline bool sortByInstanceNumber(gdcm::DataSet const & ds1, gdcm::DataSet const 
   at2.Set( ds2 );
   return at1 < at2;
 }
+
+
 
 int SurfaceReconstruction::ReadDICOMSeries(std::string dir){
 
@@ -99,7 +107,7 @@ int SurfaceReconstruction::ReadDICOMSeries(std::string dir){
     sorter.Print(std::cout);
 #endif
 
-    vtkStringArray *sarray = vtkStringArray::New();
+    vtkSmartPointer<vtkStringArray> sarray = vtkSmartPointer<vtkStringArray>::New();
     for(it = fn.begin(); it != fn. end(); ++it)  {
       const char *filename = it->c_str();
       sarray->InsertNextValue(filename);
@@ -123,7 +131,6 @@ int SurfaceReconstruction::ReadDICOMSeries(std::string dir){
     // regular cubes. Comment or modify these lines in order to adapt
     // the code to your needs.
     double *spacing = gdcmReader->GetDataSpacing();
-    input = vtkSmartPointer<vtkImageChangeInformation>::New();
     input->SetInputConnection(gdcmReader->GetOutputPort());
     input->SetOutputSpacing(spacing[0], spacing[1], spacing[0]);
     input->Update();

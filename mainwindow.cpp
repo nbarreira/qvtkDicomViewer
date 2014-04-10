@@ -28,7 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
   this->setWindowTitle("qvtkDicomViewer");
   ui->pushButton->setDisabled(true);
   ui->progressBar->setVisible(false);
-  sr.Show(ui->qvtkWidget->GetRenderWindow()); // Reset the framebuffer with a dark background
+  sr = new SurfaceReconstruction();
+  sr->Show(ui->qvtkWidget->GetRenderWindow()); // Reset the framebuffer with a dark background
 }
 
 MainWindow::~MainWindow()
@@ -45,17 +46,22 @@ void MainWindow::on_pushButton_clicked()
   ui->progressBar->setVisible(true);
   ui->progressBar->setMaximum(0);
   ui->progressBar->setMinimum(0);
-  sr.setThreshold(ui->spinBox->text().toDouble());
+  sr->setThreshold(ui->spinBox->text().toDouble());
 
+
+  // Surface computation is performed in another thread. When it finishes,
+  // the signal finished is thrown and the function handleFinished will be
+  // executed
   connect(&watcher, SIGNAL(finished()), this, SLOT(handleFinished()));
-
-  QFuture<void> future = QtConcurrent::run(&sr, &SurfaceReconstruction::Update);
+  QFuture<void> future = QtConcurrent::run(sr, &SurfaceReconstruction::Update);
   watcher.setFuture(future);
 
 }
 
+// Displays the suface once the concurrent thread that executes the Update function
+// finishes
 void MainWindow::handleFinished() {
-  sr.Show(ui->qvtkWidget->GetRenderWindow());
+  sr->Show(ui->qvtkWidget->GetRenderWindow());
   ui->pushButton->setDisabled(false);
   ui->progressBar->setVisible(false);
 }
@@ -65,7 +71,9 @@ void MainWindow::on_actionOpen_directory_activated() {
                                                   QDir::home().absolutePath(),
                                                   QFileDialog::ShowDirsOnly);
 
-  int files = sr.ReadDICOMSeries(dir.toStdString());
+  delete sr;
+  sr = new SurfaceReconstruction();
+  int files = sr->ReadDICOMSeries(dir.toStdString());
 
   QString message = QString::number(files) + " files read from " + dir;
   ui->statusBar->showMessage(message);

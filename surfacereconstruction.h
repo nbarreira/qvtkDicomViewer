@@ -30,6 +30,7 @@ class SurfaceReconstruction
 {
 public:
   SurfaceReconstruction();
+  ~SurfaceReconstruction();
 
   /**
    * @brief ReadDICOMSeries Opens a directory where the dicom series is stored

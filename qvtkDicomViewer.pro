@@ -21,7 +21,8 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-OTHER_FILES +=
+OTHER_FILES += \
+    README.md
 
 QMAKE_CXXFLAGS += -Wno-deprecated
 

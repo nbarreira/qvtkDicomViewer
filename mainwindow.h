@@ -33,7 +33,7 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
-  SurfaceReconstruction sr;
+  SurfaceReconstruction *sr;
   QFutureWatcher<void> watcher;
 
 };
