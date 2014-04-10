@@ -39,4 +39,5 @@ adjusted to segment bone surfaces from CT images. Adjust it to your
 needs.
 
 ## Known bugs
-It seems that vtkSmartPointers do not release memory. :?
+According to Valgrind, vtksmartpointer memory leaks were resolved. 
+However, there are many others memory leaks due to qt libraries.
